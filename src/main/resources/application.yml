@@ -1,0 +1,11 @@
+salary:
+  amount:
+    engineer:
+      base: 10000
+      grage: 2000
+    worker:
+      base: 9000
+      grage: 1000
+    manager:
+      base: 15000
+      grage: 3000
