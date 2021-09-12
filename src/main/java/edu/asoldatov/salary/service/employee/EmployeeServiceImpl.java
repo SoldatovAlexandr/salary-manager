@@ -25,6 +25,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee save(Employee employee) {
+        return null;
+    }
+
+    @Override
     public Collection<Employee> get() {
         return map.values();
     }

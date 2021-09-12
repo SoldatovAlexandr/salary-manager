@@ -11,12 +11,12 @@ import java.math.BigDecimal;
 @Component
 public class WorkerCalculateStrategy implements CalculateStrategy {
 
-    @Value("${salary.amount.worker}")
-    private BigDecimal amount;
+    @Value("${salary.amount.worker.base}")
+    private BigDecimal base;
 
     @Override
     public Salary calculate(Employee employee) {
-        return Salary.builder().amount(amount).build();
+        return Salary.builder().amount(base).build();
     }
 
     @Override

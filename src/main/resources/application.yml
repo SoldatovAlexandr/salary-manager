@@ -2,10 +2,17 @@ salary:
   amount:
     engineer:
       base: 10000
-      grage: 2000
+      grade: 2000
     worker:
       base: 9000
-      grage: 1000
+      grade: 1000
     manager:
       base: 15000
-      grage: 3000
+      grade: 3000
+  tax:
+    medical: 5.1
+    ndfl: 13
+    social: 2.9
+    retirement: 22
+  vacation:
+    days: 28

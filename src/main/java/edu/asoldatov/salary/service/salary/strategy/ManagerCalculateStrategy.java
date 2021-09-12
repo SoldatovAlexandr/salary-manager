@@ -7,17 +7,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.function.BiConsumer;
 
 @Component
 public class ManagerCalculateStrategy implements CalculateStrategy {
 
-    @Value("${salary.amount.manager}")
-    private BigDecimal amount;
+    @Value("${salary.amount.manager.base}")
+    private BigDecimal base;
 
     @Override
     public Salary calculate(Employee employee) {
-        return Salary.builder().amount(amount).build();
+        return Salary.builder().amount(base).build();
     }
 
     @Override

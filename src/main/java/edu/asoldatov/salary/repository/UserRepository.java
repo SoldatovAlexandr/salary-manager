@@ -1,4 +1,7 @@
 package edu.asoldatov.salary.repository;
 
-public interface UserRepository {
+import edu.asoldatov.salary.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long> {
 }

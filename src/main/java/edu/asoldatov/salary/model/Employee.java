@@ -1,10 +1,7 @@
 package edu.asoldatov.salary.model;
 
 import edu.asoldatov.salary.common.EmployeeType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 public class Employee {
     private Long id;
     private String firstName;
@@ -25,4 +23,7 @@ public class Employee {
     private LocalDate dateOfEmployment;
     private EmployeeType type;
     private List<Salary> salaries;
+    private List<Vacation> vacations;
+    private List<DayOff> dayOffs;
+    private Long extraVacationDays;
 }
