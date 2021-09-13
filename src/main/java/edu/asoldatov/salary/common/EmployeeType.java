@@ -8,5 +8,9 @@ import lombok.Getter;
 public enum EmployeeType {
     ENGINEER,
     MANAGER,
-    WORKER
+    WORKER;
+
+    public static final String ENGINEER_STRING = "ENGINEER";
+    public static final String MANAGER_STRING = "MANAGER";
+    public static final String WORKER_STRING = "WORKER";
 }

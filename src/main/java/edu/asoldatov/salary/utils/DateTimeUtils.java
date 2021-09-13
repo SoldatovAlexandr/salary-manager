@@ -47,7 +47,7 @@ public class DateTimeUtils {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public static long countDay(Date beginning, Date end) {
-        return Duration.between(convertFromDate(beginning), convertFromDate(end)).toDays();
+    public static long countDay(LocalDate beginning, LocalDate end) {
+        return Duration.between(beginning, end).toDays();
     }
 }

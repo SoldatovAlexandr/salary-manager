@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public abstract class AbstractCalculateStrategy<T extends Employee> implements CalculateStrategy<T> {
@@ -40,7 +41,7 @@ public abstract class AbstractCalculateStrategy<T extends Employee> implements C
                 .social(multiply(wage, social))
                 .retirement(multiply(wage, retirement))
                 .employee(employee)
-                .calculationDate(new Date()) // TODO: 12.09.2021 try with LocalDateTime, but could be problems with DB
+                .calculationDate(LocalDateTime.now()) // TODO: 12.09.2021 try with LocalDateTime, but could be problems with DB
                 .build();
     }
 

@@ -8,4 +8,6 @@ import edu.asoldatov.salary.model.Vacation;
 public interface VacationService {
 
     Vacation addVacation(VacationDto vacationDto, Employee employee, VacationStatus vacationStatus);
+
+    Vacation updateStatusVacation(Long vacationId, VacationStatus vacationStatus);
 }

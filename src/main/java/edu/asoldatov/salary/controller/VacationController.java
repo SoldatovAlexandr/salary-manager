@@ -43,4 +43,10 @@ public class VacationController {
         Employee employee = employeeService.get(employeeId);
         return vacationService.addVacation(vacationDto, employee, VacationStatus.ALLOWED);
     }
+
+    @PutMapping("/{vacationId}/{status}")
+    public Vacation changeStatus(@PathVariable(name = "vacationId") Long id,
+                                 @PathVariable(name = "status") VacationStatus status) {
+        return null;
+    }
 }
