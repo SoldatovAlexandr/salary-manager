@@ -4,6 +4,7 @@ import edu.asoldatov.salary.common.VacationStatus;
 import edu.asoldatov.salary.dto.VacationDto;
 import edu.asoldatov.salary.model.Employee;
 import edu.asoldatov.salary.model.Vacation;
+import edu.asoldatov.salary.model.Worker;
 import edu.asoldatov.salary.service.employee.EmployeeService;
 import edu.asoldatov.salary.service.vaction.VacationService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class VacationController {
     @PostMapping("/")
     public Vacation requestVacation(@RequestBody VacationDto vacationDto) {
         // TODO: 12.09.2021 get Employee from user
-        return vacationService.addVacation(vacationDto, new Employee(), VacationStatus.REQUESTED);
+        return vacationService.addVacation(vacationDto, new Worker(), VacationStatus.REQUESTED);
     }
 
     /**

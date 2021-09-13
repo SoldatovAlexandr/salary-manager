@@ -9,10 +9,9 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Getter
 @Setter
-public class Employee {
+public abstract class Employee {
     private Long id;
     private String firstName;
     private String lastName;
