@@ -40,9 +40,7 @@ public abstract class Employee extends AbstractPersistable<Long> {
     @Column(name = "date_of_employment")
     private LocalDate dateOfEmployment;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
-    private EmployeeType type;
+    public abstract EmployeeType getEmployeeType();
 
     @OneToMany
     private List<Salary> salaries;

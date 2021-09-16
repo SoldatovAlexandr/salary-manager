@@ -21,7 +21,7 @@ import java.util.List;
 public class VacationServiceImpl implements VacationService {
 
     @Value("${salary.vacation.days}")
-    private final Long allowedDaysOfVacation;
+    private Long allowedDaysOfVacation;
 
     private final VacationRepository vacationRepository;
     private final EmployeeService employeeService;

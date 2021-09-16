@@ -17,7 +17,7 @@ public class SalaryServiceImpl implements SalaryService {
 
     @Override
     public Salary calculate(Employee employee) {
-        CalculateStrategy calculateStrategy = strategyFactory.get(employee.getType());
+        CalculateStrategy calculateStrategy = strategyFactory.get(employee.getEmployeeType());
         Salary salary = calculateStrategy.calculate(employee);
         salaryRepository.save(salary);
         return salary;

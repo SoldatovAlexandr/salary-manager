@@ -6,7 +6,11 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(EmployeeType.MANAGER_STRING)
+@DiscriminatorValue(EmployeeType.WORKER_STRING)
 public class Worker extends Employee{
 
+    @Override
+    public EmployeeType getEmployeeType() {
+        return EmployeeType.WORKER;
+    }
 }

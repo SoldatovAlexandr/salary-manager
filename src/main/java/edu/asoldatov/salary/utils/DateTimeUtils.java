@@ -1,26 +1,21 @@
 package edu.asoldatov.salary.utils;
 
 import java.time.*;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
 public class DateTimeUtils {
 
-    public static Date getBeginningOfTheYear() {
-        LocalDateTime localDateTime = LocalDateTime.of(
-                LocalDate.now().getYear(), 1, 1, 0, 0, 0, 0);
-        return convertFromLocalDateTime(localDateTime);
+    public static LocalDate getBeginningOfTheYear() {
+        return LocalDate.now().with(TemporalAdjusters.firstDayOfYear());
     }
 
-    public static Date getFirstDayOfTheMonth(Month month) {
-        LocalDateTime localDateTime = LocalDateTime.of(
-                LocalDate.now().getYear(), month, 1, 0, 0, 0, 0);
-        return convertFromLocalDateTime(localDateTime);
+    public static LocalDate getFirstDayOfTheMonth() {
+        return LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
     }
 
-    public static Date getFirstLastOfTheMonth(Month month) {
-        LocalDateTime localDateTime = LocalDateTime.of(
-                LocalDate.now().getYear(), month, month.length(LocalDate.now().isLeapYear()), 23 , 59, 99, 9999);
-        return convertFromLocalDateTime(localDateTime);
+    public static LocalDate getLastDayOfTheMonth() {
+        return LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
     }
 
     public static Long calculateWorkingDaysOfMonth() {

@@ -9,4 +9,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue(EmployeeType.ENGINEER_STRING)
 public class Engineer extends Employee{
 
+    @Override
+    public EmployeeType getEmployeeType() {
+        return EmployeeType.ENGINEER;
+    }
 }
