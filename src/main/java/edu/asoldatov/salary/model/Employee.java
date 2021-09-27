@@ -2,6 +2,7 @@ package edu.asoldatov.salary.model;
 
 import edu.asoldatov.salary.common.EmployeeType;
 import edu.asoldatov.salary.common.Gender;
+import edu.asoldatov.salary.common.OverworkingStrategy;
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -39,6 +40,10 @@ public abstract class Employee extends AbstractPersistable<Long> {
 
     @Column(name = "date_of_employment")
     private LocalDate dateOfEmployment;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "over_working_strategy", nullable = false)
+    private OverworkingStrategy overworkingStrategy;
 
     public abstract EmployeeType getEmployeeType();
 
