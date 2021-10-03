@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class EngineerCalculateStrategyTest {
 
@@ -27,78 +26,44 @@ public class EngineerCalculateStrategyTest {
     }
 
     @Test
-    void calculate_withZeroChild() {
+    void calculate_maxRank() {
         Engineer engineer = new Engineer();
+        engineer.setElectricalSafetyGrade(10);
+        engineer.setInformationSecurityRank(10);
+        engineer.setFireSafetyRank(10);
         engineer.setChildrenCount(0);
         engineer.setCoefficient(new BigDecimal(13));
 
         Salary salary = engineerCalculateStrategy.calculate(engineer);
 
-        assertEquals(new BigDecimal("31320.00"), salary.getAmount());
-        assertEquals(new BigDecimal("1836.00"), salary.getMedical());
-        assertEquals(new BigDecimal("4680.00"), salary.getNdfl());
-        assertEquals(new BigDecimal("0"), salary.getRecoupment());
-        assertEquals(new BigDecimal("7920.00"), salary.getRetirement());
-        assertEquals(new BigDecimal("1044.00"), salary.getSocial());
-        assertEquals(new BigDecimal("36000"), salary.getWage());
-        assertNotNull(salary.getCalculationDate());
-        assertEquals(engineer, salary.getEmployee());
+        assertEquals(new BigDecimal("46000"), salary.getWage());
     }
 
     @Test
-    void calculate_withOneChild() {
+    void calculate_minRank() {
         Engineer engineer = new Engineer();
-        engineer.setChildrenCount(1);
+        engineer.setElectricalSafetyGrade(0);
+        engineer.setInformationSecurityRank(0);
+        engineer.setFireSafetyRank(0);
+        engineer.setChildrenCount(0);
         engineer.setCoefficient(new BigDecimal(13));
 
         Salary salary = engineerCalculateStrategy.calculate(engineer);
 
-        assertEquals(new BigDecimal("31502.00"), salary.getAmount());
-        assertEquals(new BigDecimal("1836.00"), salary.getMedical());
-        assertEquals(new BigDecimal("4498.00"), salary.getNdfl());
-        assertEquals(new BigDecimal("1400"), salary.getRecoupment());
-        assertEquals(new BigDecimal("7920.00"), salary.getRetirement());
-        assertEquals(new BigDecimal("1044.00"), salary.getSocial());
         assertEquals(new BigDecimal("36000"), salary.getWage());
-        assertNotNull(salary.getCalculationDate());
-        assertEquals(engineer, salary.getEmployee());
     }
 
     @Test
-    void calculate_withTwoChild() {
+    void calculate_middleRank() {
         Engineer engineer = new Engineer();
-        engineer.setChildrenCount(2);
+        engineer.setElectricalSafetyGrade(5);
+        engineer.setInformationSecurityRank(5);
+        engineer.setFireSafetyRank(5);
+        engineer.setChildrenCount(0);
         engineer.setCoefficient(new BigDecimal(13));
 
         Salary salary = engineerCalculateStrategy.calculate(engineer);
 
-        assertEquals(new BigDecimal("31684.00"), salary.getAmount());
-        assertEquals(new BigDecimal("1836.00"), salary.getMedical());
-        assertEquals(new BigDecimal("4316.00"), salary.getNdfl());
-        assertEquals(new BigDecimal("2800"), salary.getRecoupment());
-        assertEquals(new BigDecimal("7920.00"), salary.getRetirement());
-        assertEquals(new BigDecimal("1044.00"), salary.getSocial());
-        assertEquals(new BigDecimal("36000"), salary.getWage());
-        assertNotNull(salary.getCalculationDate());
-        assertEquals(engineer, salary.getEmployee());
-    }
-
-    @Test
-    void calculate_withThreeChild() {
-        Engineer engineer = new Engineer();
-        engineer.setChildrenCount(3);
-        engineer.setCoefficient(new BigDecimal(13));
-
-        Salary salary = engineerCalculateStrategy.calculate(engineer);
-
-        assertEquals(new BigDecimal("32074.00"), salary.getAmount());
-        assertEquals(new BigDecimal("1836.00"), salary.getMedical());
-        assertEquals(new BigDecimal("3926.00"), salary.getNdfl());
-        assertEquals(new BigDecimal("5800"), salary.getRecoupment());
-        assertEquals(new BigDecimal("7920.00"), salary.getRetirement());
-        assertEquals(new BigDecimal("1044.00"), salary.getSocial());
-        assertEquals(new BigDecimal("36000"), salary.getWage());
-        assertNotNull(salary.getCalculationDate());
-        assertEquals(engineer, salary.getEmployee());
+        assertEquals(new BigDecimal("37250"), salary.getWage());
     }
 }

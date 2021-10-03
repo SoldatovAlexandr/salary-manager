@@ -28,6 +28,7 @@ public abstract class AbstractCalculateStrategy<T extends Employee> implements C
 
     private static final int FIRST_CHILD_RECOUPMENT = 1400;
     private static final int THIRD_CHILD_RECOUPMENT = 3000;
+    protected static final int ZERO = 0;
 
     @Override
     public Salary calculate(T employee) {

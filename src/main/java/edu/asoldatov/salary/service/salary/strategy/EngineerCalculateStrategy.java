@@ -21,6 +21,8 @@ public class EngineerCalculateStrategy extends AbstractCalculateStrategy<Enginee
     @Value("${salary.amount.engineer.grade}")
     private BigDecimal grade;
 
+    private static final long CORRECTION_COEFFICIENT = 10L;
+
     @Override
     public EmployeeType type() {
         return EmployeeType.ENGINEER;
@@ -28,6 +30,30 @@ public class EngineerCalculateStrategy extends AbstractCalculateStrategy<Enginee
 
     @Override
     protected BigDecimal calculateWage(Engineer engineer) {
+        return calculateBaseWage(engineer).add(calculateIncreaseForRank(engineer));
+    }
+
+    /**
+     * Расчитывает базовую зарплату инженера до уплаты налогов.
+     * Является дефолтной суммой для всех инженеров.
+     */
+    private BigDecimal calculateBaseWage(Engineer engineer) {
         return base.add(grade.multiply(engineer.getCoefficient()));
     }
+
+    /**
+     * Расчитывает надбавку для каждого конкретного инженера.
+     * Надбавка расчитывается на основании квалификаций в областях:
+     * электробезопасности, пожарной и информационной безопасности.
+     * Ожидаемые значения коэфициентов в пределах от 1 до 10.
+     * Максимальная надбавка составляет 10000.
+     */
+    private BigDecimal calculateIncreaseForRank(Engineer engineer) {
+        return BigDecimal.valueOf(engineer.getElectricalSafetyGrade()
+                * engineer.getInformationSecurityRank()
+                * engineer.getFireSafetyRank()
+                * CORRECTION_COEFFICIENT
+        );
+    }
+
 }
