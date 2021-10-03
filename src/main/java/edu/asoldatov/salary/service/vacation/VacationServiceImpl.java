@@ -1,12 +1,12 @@
-package edu.asoldatov.salary.service.vaction;
+package edu.asoldatov.salary.service.vacation;
 
-import edu.asoldatov.salary.utils.DateTimeUtils;
 import edu.asoldatov.salary.common.VacationStatus;
 import edu.asoldatov.salary.dto.VacationDto;
 import edu.asoldatov.salary.model.Employee;
 import edu.asoldatov.salary.model.Vacation;
 import edu.asoldatov.salary.repository.VacationRepository;
 import edu.asoldatov.salary.service.employee.EmployeeService;
+import edu.asoldatov.salary.utils.DateTimeUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +21,7 @@ import java.util.List;
 public class VacationServiceImpl implements VacationService {
 
     @Value("${salary.vacation.days}")
-    private final Long allowedDaysOfVacation;
+    private Long allowedDaysOfVacation;
 
     private final VacationRepository vacationRepository;
     private final EmployeeService employeeService;
@@ -33,7 +33,7 @@ public class VacationServiceImpl implements VacationService {
             List<Vacation> vacations =
                     vacationRepository.findVacationByYearAndEmployee(employee, DateTimeUtils.getBeginningOfTheYear());
             long countPassedDates = vacations.stream()
-                    .map(vacation -> DateTimeUtils.countDay(vacation.getBeginning(), vacation.getEnd()))
+                    .map(vacation -> DateTimeUtils.countDay(vacation.getBeginning(), vacation.getEnding()))
                     .reduce(0L, Long::sum);
             long countRequestedDates = DateTimeUtils.countDay(vacationDto.getBeginning(), vacationDto.getEnd());
             if (allowedDaysOfVacation < countPassedDates + countRequestedDates) {
@@ -49,7 +49,7 @@ public class VacationServiceImpl implements VacationService {
         }
         Vacation vacation = Vacation.builder()
                 .beginning(vacationDto.getBeginning())
-                .end(vacationDto.getEnd())
+                .ending(vacationDto.getEnd())
                 .status(status)
                 .compensation(vacationDto.getCompensation())
                 .employee(employee)
@@ -57,6 +57,19 @@ public class VacationServiceImpl implements VacationService {
         vacationRepository.save(vacation);
         return vacation;
     }
+
+    @Override
+    public Vacation updateStatusVacation(Long vacationId, VacationStatus vacationStatus) {
+        Vacation vacation = vacationRepository.getById(vacationId);
+        vacation.setStatus(vacationStatus);
+        vacationRepository.save(vacation);
+        return vacation;
+    }
+
+//    @Override
+//    public Vacation changeDates(Long vacationId, LocalDate beginning, LocalDate end) {
+//        return null;
+//    }
 
     private long calculateExtraVacationDays(long needDays) {
         return Math.abs(allowedDaysOfVacation + needDays);

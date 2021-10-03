@@ -1,6 +1,5 @@
 package edu.asoldatov.salary.service.employee;
 
-import edu.asoldatov.salary.common.EmployeeType;
 import edu.asoldatov.salary.model.Employee;
 import org.springframework.stereotype.Service;
 
