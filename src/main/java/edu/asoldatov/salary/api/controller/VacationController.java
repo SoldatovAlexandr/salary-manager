@@ -6,7 +6,7 @@ import edu.asoldatov.salary.model.Employee;
 import edu.asoldatov.salary.model.Vacation;
 import edu.asoldatov.salary.model.Worker;
 import edu.asoldatov.salary.service.employee.EmployeeService;
-import edu.asoldatov.salary.service.vaction.VacationService;
+import edu.asoldatov.salary.service.vacation.VacationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;

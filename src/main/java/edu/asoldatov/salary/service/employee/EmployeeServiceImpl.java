@@ -1,30 +1,33 @@
 package edu.asoldatov.salary.service.employee;
 
+import edu.asoldatov.salary.exception.NotFoundException;
 import edu.asoldatov.salary.model.Employee;
+import edu.asoldatov.salary.repository.EmployeeRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Map;
 
+//TODO: оставил на лучшие времена
+@RequiredArgsConstructor
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final Map<Long, Employee> map = Map.of(
-    );
+    private final EmployeeRepository employeeRepository;
 
     @Override
     public Employee get(Long id) {
-        return map.get(id);
+        return employeeRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
     public Employee save(Employee employee) {
-        return null;
+        return employeeRepository.save(employee);
     }
 
     @Override
     public Collection<Employee> get() {
-        return map.values();
+        return employeeRepository.findAll();
     }
 
 }

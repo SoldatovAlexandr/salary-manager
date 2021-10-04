@@ -2,13 +2,16 @@ package edu.asoldatov.salary.service.salary.strategy;
 
 import edu.asoldatov.salary.model.Employee;
 import edu.asoldatov.salary.model.Salary;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.Date;
 
+@Getter
+@Setter
 public abstract class AbstractCalculateStrategy<T extends Employee> implements CalculateStrategy<T> {
 
     @Value("${salary.tax.medical}")
@@ -25,6 +28,7 @@ public abstract class AbstractCalculateStrategy<T extends Employee> implements C
 
     private static final int FIRST_CHILD_RECOUPMENT = 1400;
     private static final int THIRD_CHILD_RECOUPMENT = 3000;
+    protected static final int ZERO = 0;
 
     @Override
     public Salary calculate(T employee) {

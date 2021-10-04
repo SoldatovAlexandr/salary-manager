@@ -78,3 +78,19 @@ create table if not exists users
 );
 --rollback drop table users;
 --comment: Создана таблица users
+
+--changeset asoldatov:employee1
+alter table employee
+    ADD COLUMN number_of_details         int8 NULL,
+    ADD COLUMN hazard_ratio              int8 NULL,
+    ADD COLUMN count_of_projects         int8 NULL,
+    ADD COLUMN electrical_safety_gage    int8 NULL,
+    ADD COLUMN fire_safety_rank          int8 NULL,
+    ADD COLUMN information_security_rank int8 NULL;
+--rollback alter table drop column number_of_details
+--rollback alter table drop column hazard_ratio
+--rollback alter table drop column count_of_projects
+--rollback alter table drop column electrical_safety_gage
+--rollback alter table drop column fire_safety_rank
+--rollback alter table drop column information_security_rank
+--comment: Создана таблица users
