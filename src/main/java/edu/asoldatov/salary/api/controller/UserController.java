@@ -1,4 +1,4 @@
-package edu.asoldatov.salary.controller;
+package edu.asoldatov.salary.api.controller;
 
 import edu.asoldatov.salary.model.User;
 import edu.asoldatov.salary.service.user.UserService;

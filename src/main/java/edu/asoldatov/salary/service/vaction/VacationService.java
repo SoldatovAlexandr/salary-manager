@@ -1,7 +1,7 @@
 package edu.asoldatov.salary.service.vaction;
 
 import edu.asoldatov.salary.common.VacationStatus;
-import edu.asoldatov.salary.dto.VacationDto;
+import edu.asoldatov.salary.api.dto.VacationDto;
 import edu.asoldatov.salary.model.Employee;
 import edu.asoldatov.salary.model.Vacation;
 
