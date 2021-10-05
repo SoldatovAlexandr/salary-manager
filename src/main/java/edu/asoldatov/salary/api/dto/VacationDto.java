@@ -1,4 +1,4 @@
-package edu.asoldatov.salary.dto;
+package edu.asoldatov.salary.api.dto;
 
 import edu.asoldatov.salary.common.VacationStatus;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Builder
 @Getter

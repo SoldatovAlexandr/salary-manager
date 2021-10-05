@@ -1,4 +1,4 @@
-package edu.asoldatov.salary.dto;
+package edu.asoldatov.salary.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,5 +7,5 @@ import lombok.Getter;
 @Builder
 @Getter
 @AllArgsConstructor
-public class SalaryDto {
+public class EmployeeDto {
 }
