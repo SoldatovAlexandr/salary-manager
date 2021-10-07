@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 @Setter
 @Component
-public class ManagerCalculateStrategy extends AbstractCalculateStrategy<Manager> {
+public class ManagerCalculateStrategy implements CalculateStrategy <Manager> {
 
     @Value("${salary.amount.manager.base}")
     private BigDecimal base;
@@ -24,7 +24,7 @@ public class ManagerCalculateStrategy extends AbstractCalculateStrategy<Manager>
     }
 
     @Override
-    protected BigDecimal calculateWage(Manager manager) {
+    public BigDecimal calculate(Manager manager) {
         BigDecimal wageFromProjects = calculateWageFromProjects(manager);
         return wageFromProjects.compareTo(base) > ZERO ? wageFromProjects : base;
     }

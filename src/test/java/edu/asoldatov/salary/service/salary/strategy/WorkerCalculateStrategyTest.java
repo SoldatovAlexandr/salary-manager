@@ -1,6 +1,5 @@
 package edu.asoldatov.salary.service.salary.strategy;
 
-import edu.asoldatov.salary.model.Salary;
 import edu.asoldatov.salary.model.Worker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,6 @@ public class WorkerCalculateStrategyTest {
 
         workerCalculateStrategy.setBase(new BigDecimal("10000"));
         workerCalculateStrategy.setGrade(new BigDecimal("2000"));
-        workerCalculateStrategy.setMedical(new BigDecimal("5.1"));
-        workerCalculateStrategy.setNdfl(new BigDecimal("13"));
-        workerCalculateStrategy.setRetirement(new BigDecimal("22"));
-        workerCalculateStrategy.setSocial(new BigDecimal("2.9"));
     }
 
     @Test
@@ -33,9 +28,9 @@ public class WorkerCalculateStrategyTest {
         worker.setChildrenCount(0);
         worker.setCoefficient(new BigDecimal(5));
 
-        Salary salary = workerCalculateStrategy.calculate(worker);
+        BigDecimal wage = workerCalculateStrategy.calculate(worker);
 
-        assertEquals(new BigDecimal("40000"), salary.getWage());
+        assertEquals(new BigDecimal("40000"), wage);
     }
 
     @Test
@@ -46,8 +41,8 @@ public class WorkerCalculateStrategyTest {
         worker.setChildrenCount(0);
         worker.setCoefficient(new BigDecimal(5));
 
-        Salary salary = workerCalculateStrategy.calculate(worker);
+        BigDecimal wage = workerCalculateStrategy.calculate(worker);
 
-        assertEquals(new BigDecimal("30000"), salary.getWage());
+        assertEquals(new BigDecimal("30000"), wage);
     }
 }

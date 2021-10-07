@@ -1,7 +1,6 @@
 package edu.asoldatov.salary.service.salary.strategy;
 
 import edu.asoldatov.salary.model.Engineer;
-import edu.asoldatov.salary.model.Salary;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,10 +18,6 @@ public class EngineerCalculateStrategyTest {
 
         engineerCalculateStrategy.setBase(new BigDecimal("10000"));
         engineerCalculateStrategy.setGrade(new BigDecimal("2000"));
-        engineerCalculateStrategy.setMedical(new BigDecimal("5.1"));
-        engineerCalculateStrategy.setNdfl(new BigDecimal("13"));
-        engineerCalculateStrategy.setRetirement(new BigDecimal("22"));
-        engineerCalculateStrategy.setSocial(new BigDecimal("2.9"));
     }
 
     @Test
@@ -34,9 +29,9 @@ public class EngineerCalculateStrategyTest {
         engineer.setChildrenCount(0);
         engineer.setCoefficient(new BigDecimal(13));
 
-        Salary salary = engineerCalculateStrategy.calculate(engineer);
+        BigDecimal wage = engineerCalculateStrategy.calculate(engineer);
 
-        assertEquals(new BigDecimal("46000"), salary.getWage());
+        assertEquals(new BigDecimal("46000"), wage);
     }
 
     @Test
@@ -48,9 +43,9 @@ public class EngineerCalculateStrategyTest {
         engineer.setChildrenCount(0);
         engineer.setCoefficient(new BigDecimal(13));
 
-        Salary salary = engineerCalculateStrategy.calculate(engineer);
+        BigDecimal wage = engineerCalculateStrategy.calculate(engineer);
 
-        assertEquals(new BigDecimal("36000"), salary.getWage());
+        assertEquals(new BigDecimal("36000"), wage);
     }
 
     @Test
@@ -62,8 +57,8 @@ public class EngineerCalculateStrategyTest {
         engineer.setChildrenCount(0);
         engineer.setCoefficient(new BigDecimal(13));
 
-        Salary salary = engineerCalculateStrategy.calculate(engineer);
+        BigDecimal wage = engineerCalculateStrategy.calculate(engineer);
 
-        assertEquals(new BigDecimal("37250"), salary.getWage());
+        assertEquals(new BigDecimal("37250"), wage);
     }
 }
