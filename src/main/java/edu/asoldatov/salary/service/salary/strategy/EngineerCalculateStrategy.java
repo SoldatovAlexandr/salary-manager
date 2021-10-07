@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Component
-public class EngineerCalculateStrategy extends AbstractCalculateStrategy<Engineer> {
+public class EngineerCalculateStrategy implements CalculateStrategy<Engineer> {
 
     @Value("${salary.amount.engineer.base}")
     private BigDecimal base;
@@ -29,7 +29,7 @@ public class EngineerCalculateStrategy extends AbstractCalculateStrategy<Enginee
     }
 
     @Override
-    protected BigDecimal calculateWage(Engineer engineer) {
+    public BigDecimal calculate(Engineer engineer) {
         return calculateBaseWage(engineer).add(calculateIncreaseForRank(engineer));
     }
 

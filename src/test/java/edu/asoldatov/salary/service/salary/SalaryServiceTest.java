@@ -1,6 +1,7 @@
 package edu.asoldatov.salary.service.salary;
 
 import edu.asoldatov.salary.common.EmployeeType;
+import edu.asoldatov.salary.configuration.SalaryConfig;
 import edu.asoldatov.salary.model.Salary;
 import edu.asoldatov.salary.model.Worker;
 import edu.asoldatov.salary.repository.SalaryRepository;
@@ -24,27 +25,112 @@ public class SalaryServiceTest {
 
     private SalaryService salaryService;
 
+    private final SalaryConfig config = SalaryConfig.builder()
+            .retirement(new BigDecimal("22"))
+            .medical(new BigDecimal("5.1"))
+            .ndfl(new BigDecimal("13"))
+            .social(new BigDecimal("2.9"))
+            .build();
+
     @BeforeEach
     void setUp() {
-        salaryService = new SalaryServiceImpl(strategyFactory, salaryRepository);
+        when(strategyFactory.get(EmployeeType.WORKER)).thenReturn(calculateStrategy);
+
+        salaryService = new SalaryServiceImpl(strategyFactory, salaryRepository, config);
     }
 
     @Test
-    void calculate() {
+    void calculate_zeroChild() {
         Worker worker = new Worker();
-        Salary salary = Salary.builder()
-                .amount(BigDecimal.ONE)
-                .social(BigDecimal.ZERO)
-                .build();
+        worker.setChildrenCount(0);
 
-        when(strategyFactory.get(EmployeeType.WORKER)).thenReturn(calculateStrategy);
-        when(calculateStrategy.calculate(worker)).thenReturn(salary);
+        when(calculateStrategy.calculate(worker)).thenReturn(new BigDecimal("10000"));
 
         Salary result = salaryService.calculate(worker);
 
         verify(calculateStrategy).calculate(worker);
         verify(strategyFactory).get(EmployeeType.WORKER);
-        verify(salaryRepository).save(salary);
-        assertEquals(salary, result);
+        assertEquals(new BigDecimal("8700.00"), result.getAmount());
+        assertEquals(new BigDecimal("10000"), result.getWage());
+        assertEquals(new BigDecimal("2200.00"), result.getRetirement());
+        assertEquals(new BigDecimal("290.00"), result.getSocial());
+        assertEquals(new BigDecimal("1300.00"), result.getNdfl());
+        assertEquals(new BigDecimal("510.00"), result.getMedical());
+    }
+
+    @Test
+    void calculate_oneChild() {
+        Worker worker = new Worker();
+        worker.setChildrenCount(1);
+
+        when(calculateStrategy.calculate(worker)).thenReturn(new BigDecimal("10000"));
+
+        Salary result = salaryService.calculate(worker);
+
+        verify(calculateStrategy).calculate(worker);
+        verify(strategyFactory).get(EmployeeType.WORKER);
+        assertEquals(new BigDecimal("8882.00"), result.getAmount());
+        assertEquals(new BigDecimal("10000"), result.getWage());
+        assertEquals(new BigDecimal("2200.00"), result.getRetirement());
+        assertEquals(new BigDecimal("290.00"), result.getSocial());
+        assertEquals(new BigDecimal("1118.00"), result.getNdfl());
+        assertEquals(new BigDecimal("510.00"), result.getMedical());
+    }
+
+    @Test
+    void calculate_twoChild() {
+        Worker worker = new Worker();
+        worker.setChildrenCount(2);
+
+        when(calculateStrategy.calculate(worker)).thenReturn(new BigDecimal("10000"));
+
+        Salary result = salaryService.calculate(worker);
+
+        verify(calculateStrategy).calculate(worker);
+        verify(strategyFactory).get(EmployeeType.WORKER);
+        assertEquals(new BigDecimal("9064.00"), result.getAmount());
+        assertEquals(new BigDecimal("10000"), result.getWage());
+        assertEquals(new BigDecimal("2200.00"), result.getRetirement());
+        assertEquals(new BigDecimal("290.00"), result.getSocial());
+        assertEquals(new BigDecimal("936.00"), result.getNdfl());
+        assertEquals(new BigDecimal("510.00"), result.getMedical());
+    }
+
+    @Test
+    void calculate_threeChild() {
+        Worker worker = new Worker();
+        worker.setChildrenCount(3);
+
+        when(calculateStrategy.calculate(worker)).thenReturn(new BigDecimal("10000"));
+
+        Salary result = salaryService.calculate(worker);
+
+        verify(calculateStrategy).calculate(worker);
+        verify(strategyFactory).get(EmployeeType.WORKER);
+        assertEquals(new BigDecimal("9454.00"), result.getAmount());
+        assertEquals(new BigDecimal("10000"), result.getWage());
+        assertEquals(new BigDecimal("2200.00"), result.getRetirement());
+        assertEquals(new BigDecimal("290.00"), result.getSocial());
+        assertEquals(new BigDecimal("546.00"), result.getNdfl());
+        assertEquals(new BigDecimal("510.00"), result.getMedical());
+    }
+
+    @Test
+    void calculate_fourChild() {
+        Worker worker = new Worker();
+        worker.setChildrenCount(4);
+
+        when(calculateStrategy.calculate(worker)).thenReturn(new BigDecimal("10000"));
+
+        Salary result = salaryService.calculate(worker);
+
+        verify(calculateStrategy).calculate(worker);
+        verify(strategyFactory).get(EmployeeType.WORKER);
+        assertEquals(new BigDecimal("9844.00"), result.getAmount());
+        assertEquals(new BigDecimal("10000"), result.getWage());
+        assertEquals(new BigDecimal("2200.00"), result.getRetirement());
+        assertEquals(new BigDecimal("290.00"), result.getSocial());
+        assertEquals(new BigDecimal("156.00"), result.getNdfl());
+        assertEquals(new BigDecimal("510.00"), result.getMedical());
     }
 }
