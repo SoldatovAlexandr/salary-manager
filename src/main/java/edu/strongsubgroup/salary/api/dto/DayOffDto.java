@@ -1,4 +1,4 @@
-package edu.asoldatov.salary.dto;
+package edu.strongsubgroup.salary.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

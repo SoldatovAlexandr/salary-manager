@@ -1,4 +1,4 @@
-package edu.asoldatov.salary.service.date;
+package edu.strongsubgroup.salary.service.date;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

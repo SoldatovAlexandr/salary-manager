@@ -1,6 +1,6 @@
 package edu.strongsubgroup.salary.model;
 
-import edu.asoldatov.salary.common.DayOffStatus;
+import edu.strongsubgroup.salary.common.DayOffStatus;
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 

@@ -1,6 +1,6 @@
-package edu.asoldatov.salary.model;
+package edu.strongsubgroup.salary.model;
 
-import edu.asoldatov.salary.common.OverWorkingStatus;
+import edu.strongsubgroup.salary.common.OverWorkingStatus;
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 

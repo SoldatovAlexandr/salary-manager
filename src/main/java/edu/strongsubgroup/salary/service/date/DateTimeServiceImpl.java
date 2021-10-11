@@ -1,4 +1,4 @@
-package edu.asoldatov.salary.service.date;
+package edu.strongsubgroup.salary.service.date;
 
 import org.springframework.stereotype.Service;
 

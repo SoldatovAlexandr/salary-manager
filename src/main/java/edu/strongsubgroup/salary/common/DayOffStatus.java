@@ -1,4 +1,4 @@
-package edu.asoldatov.salary.common;
+package edu.strongsubgroup.salary.common;
 
 public enum DayOffStatus {
     REQUESTED,

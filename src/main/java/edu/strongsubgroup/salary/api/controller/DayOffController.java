@@ -1,14 +1,10 @@
-package edu.asoldatov.salary.controller;
+package edu.strongsubgroup.salary.api.controller;
 
-import edu.asoldatov.salary.common.DayOffStatus;
-import edu.asoldatov.salary.common.VacationStatus;
-import edu.asoldatov.salary.dto.DayOffDto;
-import edu.asoldatov.salary.dto.VacationDto;
-import edu.asoldatov.salary.model.DayOff;
-import edu.asoldatov.salary.model.Employee;
-import edu.asoldatov.salary.model.Vacation;
-import edu.asoldatov.salary.model.Worker;
-import edu.asoldatov.salary.service.day.off.DayOffService;
+import edu.strongsubgroup.salary.api.dto.DayOffDto;
+import edu.strongsubgroup.salary.common.DayOffStatus;
+import edu.strongsubgroup.salary.model.DayOff;
+import edu.strongsubgroup.salary.model.Worker;
+import edu.strongsubgroup.salary.service.day.off.DayOffService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
