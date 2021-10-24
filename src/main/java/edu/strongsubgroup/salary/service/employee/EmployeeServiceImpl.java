@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-//TODO: оставил на лучшие времена
 @RequiredArgsConstructor
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -16,12 +15,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     @Override
-    public Employee get(Long id) {
+    public Employee get(final Long id) {
         return employeeRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
-    public Employee save(Employee employee) {
+    public Employee save(final Employee employee) {
         return employeeRepository.save(employee);
     }
 
@@ -29,5 +28,4 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Collection<Employee> get() {
         return employeeRepository.findAll();
     }
-
 }

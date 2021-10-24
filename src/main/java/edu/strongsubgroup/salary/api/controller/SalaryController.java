@@ -1,5 +1,7 @@
 package edu.strongsubgroup.salary.api.controller;
 
+import edu.strongsubgroup.salary.api.dto.SalaryDto;
+import edu.strongsubgroup.salary.api.mapper.SalaryMapper;
 import edu.strongsubgroup.salary.model.Employee;
 import edu.strongsubgroup.salary.model.Salary;
 import edu.strongsubgroup.salary.service.employee.EmployeeService;
@@ -20,18 +22,21 @@ public class SalaryController {
 
     private final SalaryService salaryService;
     private final EmployeeService employeeService;
+    private final SalaryMapper salaryMapper;
 
     @GetMapping("/{id}")
-    public Salary calculate(@PathVariable("id") Long id) {
+    public SalaryDto calculate(@PathVariable("id") Long id) {
         Employee employee = employeeService.get(id);
-        return salaryService.calculate(employee);
+        Salary salary = salaryService.calculate(employee);
+        return salaryMapper.to(salary);
     }
 
     @GetMapping("/")
-    public List<Salary> calculate() {
+    public List<SalaryDto> calculate() {
         return employeeService.get()
                 .stream()
                 .map(salaryService::calculate)
+                .map(salaryMapper::to)
                 .collect(Collectors.toList());
     }
 }

@@ -41,10 +41,10 @@ public class SalaryServiceImpl implements SalaryService {
                 .medical(multiply(wage, config.getMedical()))
                 .social(multiply(wage, config.getSocial()))
                 .retirement(multiply(wage, config.getRetirement()))
-                .employee(employee)
+                //  .employee(employee)
                 .calculationDate(LocalDateTime.now()) // TODO: 12.09.2021 try with LocalDateTime, but could be problems with DB
                 .build();
-        salaryRepository.save(salary);
+        //salaryRepository.save(salary);
         return salary;
     }
 

@@ -1,8 +1,12 @@
 package edu.strongsubgroup.salary.model;
 
+import edu.strongsubgroup.salary.api.dto.EmployeeDto;
 import edu.strongsubgroup.salary.common.EmployeeType;
 import edu.strongsubgroup.salary.common.Gender;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
@@ -57,4 +61,6 @@ public abstract class Employee extends AbstractPersistable<Long> {
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
     private Gender gender;
+
+    public abstract EmployeeDto toDto();
 }
