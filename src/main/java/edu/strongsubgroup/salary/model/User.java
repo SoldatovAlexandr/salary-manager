@@ -1,14 +1,12 @@
 package edu.strongsubgroup.salary.model;
 
 import edu.strongsubgroup.salary.common.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 
+@Setter
 @Getter
 @Builder
 @AllArgsConstructor

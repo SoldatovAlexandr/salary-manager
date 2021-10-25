@@ -8,6 +8,7 @@ import edu.strongsubgroup.salary.service.salary.factory.StrategyFactory;
 import edu.strongsubgroup.salary.service.salary.strategy.CalculateStrategy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,6 +25,7 @@ public class SalaryServiceImpl implements SalaryService {
     private static final int FIRST_CHILD_RECOUPMENT = 1400;
     private static final int THIRD_CHILD_RECOUPMENT = 3000;
 
+    @Transactional
     @Override
     public Salary calculate(Employee employee) {
         CalculateStrategy calculateStrategy = strategyFactory.get(employee.getEmployeeType());

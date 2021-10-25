@@ -9,4 +9,7 @@ public interface UserService {
 
     List<User> get();
 
+    void add(User user);
+
+    User update(User user, Long id);
 }

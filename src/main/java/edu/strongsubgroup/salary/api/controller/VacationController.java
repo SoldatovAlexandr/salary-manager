@@ -1,7 +1,8 @@
 package edu.strongsubgroup.salary.api.controller;
 
-import edu.strongsubgroup.salary.common.VacationStatus;
 import edu.strongsubgroup.salary.api.dto.VacationDto;
+import edu.strongsubgroup.salary.api.mapper.VacationMapper;
+import edu.strongsubgroup.salary.common.VacationStatus;
 import edu.strongsubgroup.salary.model.Employee;
 import edu.strongsubgroup.salary.model.Vacation;
 import edu.strongsubgroup.salary.model.Worker;
@@ -19,29 +20,34 @@ public class VacationController {
 
     private final VacationService vacationService;
     private final EmployeeService employeeService;
+    private final VacationMapper vacationMapper;
 
     /**
      * Employee requests vacation
+     *
      * @param vacationDto
      * @return
      */
     @PostMapping("/")
-    public Vacation requestVacation(@RequestBody VacationDto vacationDto) {
+    public VacationDto requestVacation(@RequestBody VacationDto vacationDto) {
         // TODO: 12.09.2021 get Employee from user
-        return vacationService.addVacation(vacationDto, new Worker(), VacationStatus.REQUESTED);
+        Vacation vacation = vacationService.addVacation(vacationDto, new Worker(), VacationStatus.REQUESTED);
+        return vacationMapper.to(vacation);
     }
 
     /**
      * Manager gives vacation for Employee
+     *
      * @param vacationDto
      * @param employeeId
      * @return
      */
     @PostMapping("/{employeeId}")
-    public Vacation addVacation(@RequestBody VacationDto vacationDto,
-                                @PathVariable(name = "employeeId") Long employeeId) {
+    public VacationDto addVacation(@RequestBody VacationDto vacationDto,
+                                   @PathVariable(name = "employeeId") Long employeeId) {
         Employee employee = employeeService.get(employeeId);
-        return vacationService.addVacation(vacationDto, employee, VacationStatus.ALLOWED);
+        Vacation vacation = vacationService.addVacation(vacationDto, employee, VacationStatus.ALLOWED);
+        return vacationMapper.to(vacation);
     }
 
     @PutMapping("/{vacationId}/{status}")
