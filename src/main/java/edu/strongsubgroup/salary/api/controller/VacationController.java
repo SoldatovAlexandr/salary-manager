@@ -53,6 +53,14 @@ public class VacationController {
     @PutMapping("/{vacationId}/{status}")
     public Vacation changeStatus(@PathVariable(name = "vacationId") Long id,
                                  @PathVariable(name = "status") VacationStatus status) {
-        return null;
+        return vacationService.updateStatusVacation(id, status);
+    }
+
+    @PutMapping("/{vacationId}")
+    public Vacation changeDates(@PathVariable(name = "vacationId") Long id,
+                                @RequestBody VacationDto vacationDto) {
+        // TODO: 16.09.2021 check who updates
+        return vacationService.changeDates(id, vacationDto.getBeginning(),
+                vacationDto.getBeginning(), VacationStatus.REQUESTED);
     }
 }

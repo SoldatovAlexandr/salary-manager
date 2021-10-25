@@ -1,10 +1,11 @@
 package edu.strongsubgroup.salary.model;
 
-import edu.strongsubgroup.salary.common.DayOffStatus;
+import edu.strongsubgroup.salary.common.OverWorkingStatus;
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Builder
@@ -13,15 +14,18 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "day_off")
-public class DayOff extends AbstractPersistable<Long> {
+@Table(name = "over_working")
+public class OverWorking extends AbstractPersistable<Long> {
 
     @Column(name = "date")
     private LocalDate date;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private DayOffStatus status;
+    private OverWorkingStatus status;
+
+    @Column(name = "hours", nullable = false)
+    private BigDecimal hours;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")

@@ -30,3 +30,5 @@ salary:
     retirement: 22
   vacation:
     days: 28
+frontend:
+  host: "${SALARY_FRONTEND_URL}"

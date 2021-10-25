@@ -3,6 +3,7 @@ package edu.strongsubgroup.salary.model;
 import edu.strongsubgroup.salary.api.dto.EmployeeDto;
 import edu.strongsubgroup.salary.common.EmployeeType;
 import edu.strongsubgroup.salary.common.Gender;
+import edu.strongsubgroup.salary.common.OverworkingStrategy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,10 @@ public abstract class Employee extends AbstractPersistable<Long> {
 
     @Column(name = "date_of_employment")
     private LocalDate dateOfEmployment;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "over_working_strategy", nullable = false)
+    private OverworkingStrategy overworkingStrategy;
 
     public abstract EmployeeType getEmployeeType();
 
