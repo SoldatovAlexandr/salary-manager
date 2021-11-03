@@ -1,22 +1,22 @@
 package edu.strongsubgroup.salary.service.salary.strategy;
 
 import edu.strongsubgroup.salary.common.EmployeeType;
+import edu.strongsubgroup.salary.configuration.properties.WorkerCalculationsProperties;
 import edu.strongsubgroup.salary.model.Worker;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+@RequiredArgsConstructor
 @Setter
 @Component
 public class WorkerCalculateStrategy implements CalculateStrategy<Worker> {
 
-    @Value("${salary.amount.worker.base}")
-    private BigDecimal base;
+    private final WorkerCalculationsProperties properties;
 
-    @Value("${salary.amount.worker.grade}")
-    private BigDecimal grade;
+    private static final long DETAILS_CORRECTION_COEFFICIENT = 100;
 
     @Override
     public EmployeeType type() {
@@ -30,14 +30,14 @@ public class WorkerCalculateStrategy implements CalculateStrategy<Worker> {
     }
 
     private BigDecimal calculateWageForDetails(Worker worker) {
-        return BigDecimal.valueOf(worker.getNumberOfDetails() * 100);
+        return BigDecimal.valueOf(worker.getNumberOfDetails() * DETAILS_CORRECTION_COEFFICIENT);
     }
 
     private BigDecimal getBaseWage(BigDecimal wageForDetails) {
-        return wageForDetails.compareTo(base) > ZERO ? wageForDetails : base;
+        return wageForDetails.compareTo(properties.getBase()) > ZERO ? wageForDetails : properties.getBase();
     }
 
     private BigDecimal calculateAllowance(Worker worker) {
-        return grade.multiply(worker.getCoefficient()).multiply(worker.getHazardRatio());
+        return properties.getGrade().multiply(worker.getCoefficient()).multiply(worker.getHazardRatio());
     }
 }

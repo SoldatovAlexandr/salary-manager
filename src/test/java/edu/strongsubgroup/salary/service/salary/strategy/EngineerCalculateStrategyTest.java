@@ -1,5 +1,6 @@
 package edu.strongsubgroup.salary.service.salary.strategy;
 
+import edu.strongsubgroup.salary.configuration.properties.EngineerCalculationsProperties;
 import edu.strongsubgroup.salary.model.Engineer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,17 +8,21 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class EngineerCalculateStrategyTest {
+
+    private final EngineerCalculationsProperties properties = mock(EngineerCalculationsProperties.class);
 
     private EngineerCalculateStrategy engineerCalculateStrategy;
 
     @BeforeEach
     void setUp() {
-        engineerCalculateStrategy = new EngineerCalculateStrategy();
+        engineerCalculateStrategy = new EngineerCalculateStrategy(properties);
 
-        engineerCalculateStrategy.setBase(new BigDecimal("10000"));
-        engineerCalculateStrategy.setGrade(new BigDecimal("2000"));
+        when(properties.getBase()).thenReturn(new BigDecimal("10000"));
+        when(properties.getGrade()).thenReturn(new BigDecimal("2000"));
     }
 
     @Test

@@ -1,7 +1,7 @@
 package edu.strongsubgroup.salary.service.salary;
 
 import edu.strongsubgroup.salary.common.EmployeeType;
-import edu.strongsubgroup.salary.configuration.SalaryConfig;
+import edu.strongsubgroup.salary.configuration.properties.SalaryTaxProperties;
 import edu.strongsubgroup.salary.model.Salary;
 import edu.strongsubgroup.salary.model.Worker;
 import edu.strongsubgroup.salary.repository.SalaryRepository;
@@ -25,7 +25,7 @@ public class SalaryServiceTest {
 
     private SalaryService salaryService;
 
-    private final SalaryConfig config = SalaryConfig.builder()
+    private final SalaryTaxProperties config = SalaryTaxProperties.builder()
             .retirement(new BigDecimal("22"))
             .medical(new BigDecimal("5.1"))
             .ndfl(new BigDecimal("13"))

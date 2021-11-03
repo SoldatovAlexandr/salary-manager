@@ -1,25 +1,22 @@
 package edu.strongsubgroup.salary.service.salary.strategy;
 
 import edu.strongsubgroup.salary.common.EmployeeType;
+import edu.strongsubgroup.salary.configuration.properties.EngineerCalculationsProperties;
 import edu.strongsubgroup.salary.model.Engineer;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-//TODO: add config class for base and grade
+@RequiredArgsConstructor
 @Getter
 @Setter
 @Component
 public class EngineerCalculateStrategy implements CalculateStrategy<Engineer> {
 
-    @Value("${salary.amount.engineer.base}")
-    private BigDecimal base;
-
-    @Value("${salary.amount.engineer.grade}")
-    private BigDecimal grade;
+    private final EngineerCalculationsProperties properties;
 
     private static final long CORRECTION_COEFFICIENT = 10L;
 
@@ -38,7 +35,7 @@ public class EngineerCalculateStrategy implements CalculateStrategy<Engineer> {
      * Является дефолтной суммой для всех инженеров.
      */
     private BigDecimal calculateBaseWage(Engineer engineer) {
-        return base.add(grade.multiply(engineer.getCoefficient()));
+        return properties.getBase().add(properties.getGrade().multiply(engineer.getCoefficient()));
     }
 
     /**

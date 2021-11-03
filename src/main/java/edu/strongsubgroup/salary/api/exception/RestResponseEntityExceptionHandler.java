@@ -1,6 +1,6 @@
 package edu.strongsubgroup.salary.api.exception;
 
-import javassist.NotFoundException;
+import edu.strongsubgroup.salary.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
