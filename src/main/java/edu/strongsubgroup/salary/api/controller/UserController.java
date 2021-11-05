@@ -40,7 +40,7 @@ public class UserController {
     public UserDto add(@RequestBody UserDto userDto) {
         final User user = userMapper.to(userDto);
         user.setEmployee(employeeService.get(userDto.getEmployeeId()));
-        userService.add(user);
+        userService.add(user, userDto.getRoles());
         return userMapper.to(user);
     }
 
@@ -48,6 +48,6 @@ public class UserController {
     public UserDto update(@PathVariable("id") Long id,
                           @RequestBody UserDto userDto) {
         final User user = userMapper.to(userDto);
-        return userMapper.to(userService.update(user, id));
+        return userMapper.to(userService.update(user, userDto.getRoles(), id));
     }
 }

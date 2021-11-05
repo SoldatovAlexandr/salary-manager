@@ -1,12 +1,13 @@
 package edu.strongsubgroup.salary.service.vacation;
 
-import edu.strongsubgroup.salary.common.VacationStatus;
 import edu.strongsubgroup.salary.api.dto.VacationDto;
+import edu.strongsubgroup.salary.common.VacationStatus;
+import edu.strongsubgroup.salary.exception.NotFoundException;
 import edu.strongsubgroup.salary.model.Employee;
 import edu.strongsubgroup.salary.model.Vacation;
 import edu.strongsubgroup.salary.repository.VacationRepository;
-import edu.strongsubgroup.salary.service.employee.EmployeeService;
 import edu.strongsubgroup.salary.service.date.DateTimeService;
+import edu.strongsubgroup.salary.service.employee.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,7 +46,7 @@ public class VacationServiceImpl implements VacationService {
 
     @Override
     public Vacation updateStatusVacation(Long vacationId, VacationStatus vacationStatus) {
-        Vacation vacation = vacationRepository.getById(vacationId);
+        Vacation vacation = vacationRepository.findById(vacationId).orElseThrow(NotFoundException::new);
         vacation.setStatus(vacationStatus);
         vacationRepository.save(vacation);
         return vacation;
@@ -53,7 +54,7 @@ public class VacationServiceImpl implements VacationService {
 
     @Override
     public Vacation changeDates(Long vacationId, LocalDate beginning, LocalDate ending, VacationStatus vacationStatus) {
-        Vacation vacation = vacationRepository.getById(vacationId);
+        Vacation vacation = vacationRepository.findById(vacationId).orElseThrow(NotFoundException::new);
         vacation.setStatus(VacationStatus.REQUESTED);
         if (dateTimeService.differenceBetweenTwoDays(beginning, ending) >
                 dateTimeService.differenceBetweenTwoDays(vacation.getBeginning(), vacation.getEnding())) {

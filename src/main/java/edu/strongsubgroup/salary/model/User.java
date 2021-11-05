@@ -1,10 +1,10 @@
 package edu.strongsubgroup.salary.model;
 
-import edu.strongsubgroup.salary.common.Role;
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -20,9 +20,13 @@ public class User extends AbstractPersistable<Long> {
     @Column(name = "password")
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "user_role", nullable = false)
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    private Set<Role> roles;
 
     @OneToOne
     @JoinColumn(name = "employee_id")

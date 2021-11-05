@@ -13,17 +13,18 @@ create sequence if not exists hibernate_sequence
 --changeset akorzh:employee
 create table if not exists employee
 (
-    id                  int8 default nextval('hibernate_sequence'::regclass) not null primary key unique,
-    first_name          varchar(64)                                          not null,
-    last_name           varchar(64)                                          not null,
-    patronymic          varchar(64)                                          not null,
-    coefficient         varchar(64)                                          not null,
-    children_count      bigint                                               not null,
-    date_of_birth       date                                                 not null,
-    date_of_employment  date                                                 not null,
-    type                varchar(64)                                          not null,
-    extra_vacation_days bigint                                               not null,
-    gender              varchar(64)                                          not null
+    id                    int8 default nextval('hibernate_sequence'::regclass) not null primary key unique,
+    first_name            varchar(64)                                          not null,
+    last_name             varchar(64)                                          not null,
+    patronymic            varchar(64)                                          not null,
+    coefficient           varchar(64)                                          not null,
+    children_count        bigint                                               not null,
+    date_of_birth         date                                                 not null,
+    date_of_employment    date                                                 not null,
+    type                  varchar(64)                                          not null,
+    extra_vacation_days   bigint                                               not null,
+    gender                varchar(64)                                          not null,
+    over_working_strategy varchar(64)                                          not null
 );
 --rollback drop table employee;
 --comment: Создана таблица employee
@@ -33,6 +34,7 @@ create table if not exists day_off
 (
     id          int8 default nextval('hibernate_sequence'::regclass) not null primary key unique,
     date        date                                                 not null,
+    status      varchar(64)                                          not null,
     employee_id int8                                                 not null
         constraint fk_foreign_key_ay_off_employee references employee
 );
@@ -76,12 +78,43 @@ create table if not exists users
     id          int8 default nextval('hibernate_sequence'::regclass) not null primary key unique,
     login       varchar(64)                                          not null unique,
     password    varchar(64)                                          not null,
-    user_role   varchar(64)                                          not null,
     employee_id int8                                                 not null
         constraint fk_foreign_key_user_employee references employee
 );
 --rollback drop table users;
 --comment: Создана таблица users
+
+--changeset akorzh:users2
+create table if not exists roles
+(
+    id   int8 default nextval('hibernate_sequence'::regclass) not null primary key unique,
+    name varchar(64)                                          not null unique
+);
+--rollback drop table roles;
+--comment: Создана таблица roles
+
+--changeset akorzh:users3
+create table if not exists user_roles
+(
+    user_id int8 NOT NULL,
+    role_id int8 NOT NULL,
+    PRIMARY KEY (user_id, role_id),
+    CONSTRAINT user_roles_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT user_roles_ibfk_2 FOREIGN KEY (role_id) REFERENCES roles (id)
+);
+
+--changeset akorzh:over_working
+create table if not exists over_working
+(
+    id          int8 default nextval('hibernate_sequence'::regclass) not null primary key unique,
+    date        date                                                 not null,
+    status      varchar(64)                                          not null,
+    hours       numeric(8, 2)                                        not null,
+    employee_id int8                                                 not null
+        constraint fk_foreign_key_user_employee references employee
+);
+--rollback drop table users;
+--comment: Создана таблица over_working
 
 --changeset asoldatov:employee1
 alter table employee
@@ -98,3 +131,7 @@ alter table employee
 --rollback alter table drop column fire_safety_rank
 --rollback alter table drop column information_security_rank
 --comment: Создана таблица users
+
+INSERT INTO roles (name)
+VALUES ('USER'),
+       ('ADMIN');

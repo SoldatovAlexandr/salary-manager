@@ -38,9 +38,9 @@ public class Salary extends AbstractPersistable<Long> {
     @Column(name = "social")
     private BigDecimal social;
 
- /*   @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "employee_id")
-    private Employee employee;*/
+    private Employee employee;
 
     @Column(name = "calculation_date")
     private LocalDateTime calculationDate;
