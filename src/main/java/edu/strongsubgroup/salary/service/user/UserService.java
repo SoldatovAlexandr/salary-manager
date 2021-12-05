@@ -1,5 +1,6 @@
 package edu.strongsubgroup.salary.service.user;
 
+import edu.strongsubgroup.salary.api.dto.RoleDto;
 import edu.strongsubgroup.salary.model.User;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface UserService {
 
     List<User> get();
 
-    void add(User user);
+    void add(User user, List<RoleDto> roles);
 
-    User update(User user, Long id);
+    User update(User user, List<RoleDto> roles, Long id);
 }

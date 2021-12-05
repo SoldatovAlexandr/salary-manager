@@ -1,6 +1,6 @@
 package edu.strongsubgroup.salary.common;
 
-public enum Role {
+public enum UserRole {
     USER,
     ADMIN
 }
