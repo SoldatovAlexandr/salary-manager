@@ -3,7 +3,10 @@ package edu.strongsubgroup.salary.service.employee;
 import edu.strongsubgroup.salary.exception.NotFoundException;
 import edu.strongsubgroup.salary.model.Employee;
 import edu.strongsubgroup.salary.repository.EmployeeRepository;
+import edu.strongsubgroup.salary.repository.specification.EmployeeSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -15,17 +18,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     @Override
-    public Employee get(final Long id) {
+    public Employee findById(final Long id) {
         return employeeRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
-    public Employee save(final Employee employee) {
-        return employeeRepository.save(employee);
+    public void save(final Employee employee) {
+        employeeRepository.save(employee);
     }
 
     @Override
-    public Collection<Employee> get() {
-        return employeeRepository.findAll();
+    public Page<Employee> findBySpecification(EmployeeSpecification specification, Pageable pageable) {
+        return employeeRepository.findAll(specification, pageable);
     }
+
+    @Override
+    public Collection<Employee> findUnCalculated(Long limit) {
+        return employeeRepository.findUnCalculated(limit);
+    }
+
 }

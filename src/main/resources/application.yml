@@ -32,3 +32,9 @@ salary:
     days: 28
 frontend:
   host: "${SALARY_FRONTEND_URL}"
+app:
+  job-properties:
+    calculate-salary:
+      fixed-delay: 50000
+      initial-delay: 5000
+      limit: 100

@@ -12,31 +12,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/employees/salaries")
+@RequestMapping("/employees")
 public class SalaryController {
 
     private final SalaryService salaryService;
     private final EmployeeService employeeService;
     private final SalaryMapper salaryMapper;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/salaries")
     public SalaryDto calculate(@PathVariable("id") Long id) {
-        Employee employee = employeeService.get(id);
+        Employee employee = employeeService.findById(id);
         Salary salary = salaryService.calculate(employee);
         return salaryMapper.to(salary);
-    }
-
-    @GetMapping("/")
-    public List<SalaryDto> calculate() {
-        return employeeService.get()
-                .stream()
-                .map(salaryService::calculate)
-                .map(salaryMapper::to)
-                .collect(Collectors.toList());
     }
 }

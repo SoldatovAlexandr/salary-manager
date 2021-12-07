@@ -1,13 +1,18 @@
 package edu.strongsubgroup.salary.service.employee;
 
 import edu.strongsubgroup.salary.model.Employee;
+import edu.strongsubgroup.salary.repository.specification.EmployeeSpecification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Collection;
 
 public interface EmployeeService {
-    Employee get(Long id);
+    Employee findById(Long id);
 
-    Employee save(Employee employee);
+    void save(Employee employee);
 
-    Collection<Employee> get();
+    Page<Employee> findBySpecification(EmployeeSpecification specification, Pageable pageable);
+
+    Collection<Employee> findUnCalculated(Long limit);
 }

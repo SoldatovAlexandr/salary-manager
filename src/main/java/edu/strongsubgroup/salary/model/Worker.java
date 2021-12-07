@@ -37,6 +37,7 @@ public class Worker extends Employee {
         setNumberOfDetails(employeeDto.getNumberOfDetails());
         setExtraVacationDays(employeeDto.getExtraVacationDays());
         setHazardRatio(employeeDto.getHazardRatio());
+        setOverworkingStrategy(employeeDto.getOverworkingStrategy());
     }
 
     @Override

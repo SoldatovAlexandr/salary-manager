@@ -25,7 +25,6 @@ public class SalaryServiceImpl implements SalaryService {
     private static final int FIRST_CHILD_RECOUPMENT = 1400;
     private static final int THIRD_CHILD_RECOUPMENT = 3000;
 
-    @Transactional
     @Override
     public Salary calculate(Employee employee) {
         CalculateStrategy calculateStrategy = strategyFactory.get(employee.getEmployeeType());
@@ -43,11 +42,15 @@ public class SalaryServiceImpl implements SalaryService {
                 .medical(multiply(wage, properties.getMedical()))
                 .social(multiply(wage, properties.getSocial()))
                 .retirement(multiply(wage, properties.getRetirement()))
-                //  .employee(employee)
+                .employee(employee)
                 .calculationDate(LocalDateTime.now()) // TODO: 12.09.2021 try with LocalDateTime, but could be problems with DB
                 .build();
-        //salaryRepository.save(salary);
         return salary;
+    }
+
+    @Override
+    public void save(Salary salary) {
+        salaryRepository.save(salary);
     }
 
     private BigDecimal calculateRecoupment(Integer count) {

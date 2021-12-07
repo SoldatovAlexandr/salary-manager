@@ -5,4 +5,7 @@ import edu.strongsubgroup.salary.model.Salary;
 
 public interface SalaryService {
     Salary calculate(Employee employee);
+
+    void save(Salary salary);
+
 }

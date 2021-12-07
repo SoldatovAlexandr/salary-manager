@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import edu.strongsubgroup.salary.common.EmployeeType;
 import edu.strongsubgroup.salary.common.Gender;
+import edu.strongsubgroup.salary.common.OverworkingStrategy;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class EmployeeDto {
     private Integer childrenCount;
     private BigDecimal coefficient;
     private Long extraVacationDays;
+    private OverworkingStrategy overworkingStrategy;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dateOfBirth;
