@@ -45,7 +45,7 @@ public class VacationController {
     @PostMapping("/{employeeId}")
     public VacationDto addVacation(@RequestBody VacationDto vacationDto,
                                    @PathVariable(name = "employeeId") Long employeeId) {
-        Employee employee = employeeService.get(employeeId);
+        Employee employee = employeeService.findById(employeeId);
         Vacation vacation = vacationService.addVacation(vacationDto, employee, VacationStatus.ALLOWED);
         return vacationMapper.to(vacation);
     }

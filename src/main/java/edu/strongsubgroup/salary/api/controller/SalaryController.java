@@ -7,36 +7,38 @@ import edu.strongsubgroup.salary.model.Salary;
 import edu.strongsubgroup.salary.service.employee.EmployeeService;
 import edu.strongsubgroup.salary.service.salary.SalaryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/employees/salaries")
+@RequestMapping("/employees/{employeeId}/salaries")
 public class SalaryController {
 
     private final SalaryService salaryService;
     private final EmployeeService employeeService;
     private final SalaryMapper salaryMapper;
 
-    @GetMapping("/{id}")
-    public SalaryDto calculate(@PathVariable("id") Long id) {
-        Employee employee = employeeService.get(id);
+    @GetMapping("/calculate")
+    public SalaryDto calculate(@PathVariable("employeeId") Long employeeId) {
+        Employee employee = employeeService.findById(employeeId);
         Salary salary = salaryService.calculate(employee);
         return salaryMapper.to(salary);
     }
 
+    @Transactional
     @GetMapping("/")
-    public List<SalaryDto> calculate() {
-        return employeeService.get()
-                .stream()
-                .map(salaryService::calculate)
-                .map(salaryMapper::to)
-                .collect(Collectors.toList());
+    public Page<SalaryDto> getSalaries(@PathVariable("employeeId") Long employeeId,
+                                       @PageableDefault(sort = {"calculationDate"}, direction = Sort.Direction.DESC, size = 20) final Pageable pageable) {
+        Employee employee = employeeService.findById(employeeId);
+        Page<Salary> salaries = salaryService.findAllByEmployee(employee, pageable);
+        return salaries.map(salaryMapper::to);
     }
 }

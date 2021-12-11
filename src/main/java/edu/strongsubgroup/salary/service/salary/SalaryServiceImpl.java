@@ -7,8 +7,9 @@ import edu.strongsubgroup.salary.repository.SalaryRepository;
 import edu.strongsubgroup.salary.service.salary.factory.StrategyFactory;
 import edu.strongsubgroup.salary.service.salary.strategy.CalculateStrategy;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,7 +26,6 @@ public class SalaryServiceImpl implements SalaryService {
     private static final int FIRST_CHILD_RECOUPMENT = 1400;
     private static final int THIRD_CHILD_RECOUPMENT = 3000;
 
-    @Transactional
     @Override
     public Salary calculate(Employee employee) {
         CalculateStrategy calculateStrategy = strategyFactory.get(employee.getEmployeeType());
@@ -43,11 +43,20 @@ public class SalaryServiceImpl implements SalaryService {
                 .medical(multiply(wage, properties.getMedical()))
                 .social(multiply(wage, properties.getSocial()))
                 .retirement(multiply(wage, properties.getRetirement()))
-                //  .employee(employee)
+                .employee(employee)
                 .calculationDate(LocalDateTime.now()) // TODO: 12.09.2021 try with LocalDateTime, but could be problems with DB
                 .build();
-        //salaryRepository.save(salary);
         return salary;
+    }
+
+    @Override
+    public void save(Salary salary) {
+        salaryRepository.save(salary);
+    }
+
+    @Override
+    public Page<Salary> findAllByEmployee(Employee employee, Pageable pageable) {
+        return salaryRepository.findAllByEmployee(employee, pageable);
     }
 
     private BigDecimal calculateRecoupment(Integer count) {
