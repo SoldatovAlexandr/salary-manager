@@ -2,6 +2,7 @@ package edu.strongsubgroup.salary.service.salary;
 
 import edu.strongsubgroup.salary.common.EmployeeType;
 import edu.strongsubgroup.salary.configuration.properties.SalaryTaxProperties;
+import edu.strongsubgroup.salary.model.Employee;
 import edu.strongsubgroup.salary.model.Salary;
 import edu.strongsubgroup.salary.model.Worker;
 import edu.strongsubgroup.salary.repository.SalaryRepository;
@@ -9,19 +10,19 @@ import edu.strongsubgroup.salary.service.salary.factory.StrategyFactory;
 import edu.strongsubgroup.salary.service.salary.strategy.CalculateStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class SalaryServiceTest {
 
-    private final StrategyFactory strategyFactory = Mockito.mock(StrategyFactory.class);
-    private final SalaryRepository salaryRepository = Mockito.mock(SalaryRepository.class);
-    private final CalculateStrategy calculateStrategy = Mockito.mock(CalculateStrategy.class);
+    private final StrategyFactory strategyFactory = mock(StrategyFactory.class);
+    private final SalaryRepository salaryRepository = mock(SalaryRepository.class);
+    private final CalculateStrategy calculateStrategy = mock(CalculateStrategy.class);
 
     private SalaryService salaryService;
 
@@ -132,5 +133,27 @@ public class SalaryServiceTest {
         assertEquals(new BigDecimal("290.00"), result.getSocial());
         assertEquals(new BigDecimal("156.00"), result.getNdfl());
         assertEquals(new BigDecimal("510.00"), result.getMedical());
+    }
+
+    @Test
+    void save() {
+        Salary salary = new Salary();
+
+        salaryService.save(salary);
+
+        verify(salaryRepository).save(salary);
+    }
+
+    @Test
+    void findAllByEmployee() {
+        Employee employee = mock(Employee.class);
+        Pageable pageable = mock(Pageable.class);
+        Page<Salary> salaries = mock(Page.class);
+        when(salaryRepository.findAllByEmployee(employee, pageable)).thenReturn(salaries);
+
+        Page<Salary> result = salaryService.findAllByEmployee(employee, pageable);
+
+        verify(salaryRepository).findAllByEmployee(employee, pageable);
+        assertEquals(salaries, result);
     }
 }

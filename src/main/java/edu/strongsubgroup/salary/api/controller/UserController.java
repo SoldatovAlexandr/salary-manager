@@ -7,10 +7,12 @@ import edu.strongsubgroup.salary.service.employee.EmployeeService;
 import edu.strongsubgroup.salary.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -24,20 +26,17 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserDto get(@PathVariable("id") Long id) {
-        final User user = userService.get(id);
+        final User user = userService.getById(id);
         return userMapper.to(user);
     }
 
     @GetMapping("/")
-    public List<UserDto> get() {
-        return userService.get()
-                .stream()
-                .map(userMapper::to)
-                .collect(Collectors.toList());
+    public Page<UserDto> getUsers(@PageableDefault(sort = {"firstName"}, direction = Sort.Direction.DESC, size = 20) final Pageable pageable) {
+        return userService.getUsers(pageable).map(userMapper::to);
     }
 
     @PostMapping("/")
-    public UserDto add(@RequestBody UserDto userDto) {
+    public UserDto add(@Validated @RequestBody UserDto userDto) {
         final User user = userMapper.to(userDto);
         user.setEmployee(employeeService.findById(userDto.getEmployeeId()));
         userService.add(user, userDto.getRoles());
@@ -46,8 +45,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public UserDto update(@PathVariable("id") Long id,
-                          @RequestBody UserDto userDto) {
-        final User user = userMapper.to(userDto);
-        return userMapper.to(userService.update(user, userDto.getRoles(), id));
+                         @Validated @RequestBody UserDto userDto) {
+        return userMapper.to(userService.update(userDto.getRoles(), id));
     }
 }
