@@ -39,7 +39,7 @@ public class UserController {
     @PostMapping("/")
     public UserDto add(@RequestBody UserDto userDto) {
         final User user = userMapper.to(userDto);
-        user.setEmployee(employeeService.get(userDto.getEmployeeId()));
+        user.setEmployee(employeeService.findById(userDto.getEmployeeId()));
         userService.add(user, userDto.getRoles());
         return userMapper.to(user);
     }

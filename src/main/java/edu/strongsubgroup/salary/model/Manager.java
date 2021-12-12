@@ -32,6 +32,7 @@ public class Manager extends Employee {
         setExtraVacationDays(employeeDto.getExtraVacationDays());
         setDateOfEmployment(LocalDate.now());
         setCountOfProjects(employeeDto.getCountOfProjects());
+        setOverworkingStrategy(employeeDto.getOverworkingStrategy());
     }
 
     @Override

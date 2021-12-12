@@ -40,6 +40,7 @@ public class Engineer extends Employee {
         setFireSafetyRank(employeeDto.getFireSafetyRank());
         setExtraVacationDays(employeeDto.getExtraVacationDays());
         setInformationSecurityRank(employeeDto.getInformationSecurityRank());
+        setOverworkingStrategy(employeeDto.getOverworkingStrategy());
     }
 
     @Override
