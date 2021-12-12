@@ -44,6 +44,7 @@ public class SalaryServiceTest {
     void calculate_zeroChild() {
         Worker worker = new Worker();
         worker.setChildrenCount(0);
+        worker.setType(EmployeeType.WORKER);
 
         when(calculateStrategy.calculate(worker)).thenReturn(new BigDecimal("10000"));
 
@@ -63,6 +64,7 @@ public class SalaryServiceTest {
     void calculate_oneChild() {
         Worker worker = new Worker();
         worker.setChildrenCount(1);
+        worker.setType(EmployeeType.WORKER);
 
         when(calculateStrategy.calculate(worker)).thenReturn(new BigDecimal("10000"));
 
@@ -82,6 +84,7 @@ public class SalaryServiceTest {
     void calculate_twoChild() {
         Worker worker = new Worker();
         worker.setChildrenCount(2);
+        worker.setType(EmployeeType.WORKER);
 
         when(calculateStrategy.calculate(worker)).thenReturn(new BigDecimal("10000"));
 
@@ -101,6 +104,7 @@ public class SalaryServiceTest {
     void calculate_threeChild() {
         Worker worker = new Worker();
         worker.setChildrenCount(3);
+        worker.setType(EmployeeType.WORKER);
 
         when(calculateStrategy.calculate(worker)).thenReturn(new BigDecimal("10000"));
 
@@ -120,6 +124,7 @@ public class SalaryServiceTest {
     void calculate_fourChild() {
         Worker worker = new Worker();
         worker.setChildrenCount(4);
+        worker.setType(EmployeeType.WORKER);
 
         when(calculateStrategy.calculate(worker)).thenReturn(new BigDecimal("10000"));
 
