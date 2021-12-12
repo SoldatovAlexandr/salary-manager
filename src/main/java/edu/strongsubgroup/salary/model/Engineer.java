@@ -44,11 +44,6 @@ public class Engineer extends Employee {
     }
 
     @Override
-    public EmployeeType getEmployeeType() {
-        return EmployeeType.ENGINEER;
-    }
-
-    @Override
     public EmployeeDto toDto() {
         return EmployeeDto.builder()
                 .id(getId())
@@ -58,7 +53,7 @@ public class Engineer extends Employee {
                 .patronymic(getPatronymic())
                 .dateOfBirth(getDateOfBirth())
                 .childrenCount(getChildrenCount())
-                .employeeType(getEmployeeType())
+                .employeeType(getType())
                 .gender(getGender())
                 .dateOfEmployment(getDateOfEmployment())
                 .electricalSafetyGrade(getElectricalSafetyGrade())

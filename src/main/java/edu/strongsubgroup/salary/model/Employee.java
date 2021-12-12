@@ -49,7 +49,9 @@ public abstract class Employee extends AbstractPersistable<Long> {
     @Column(name = "over_working_strategy", nullable = false)
     private OverworkingStrategy overworkingStrategy;
 
-    public abstract EmployeeType getEmployeeType();
+    @Column(name = "type", insertable = false, updatable = false)
+    @Enumerated(EnumType.STRING)
+    private EmployeeType type;
 
     @OneToMany
     private List<Salary> salaries;

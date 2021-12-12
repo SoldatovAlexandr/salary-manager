@@ -28,7 +28,7 @@ public class SalaryServiceImpl implements SalaryService {
 
     @Override
     public Salary calculate(Employee employee) {
-        CalculateStrategy calculateStrategy = strategyFactory.get(employee.getEmployeeType());
+        CalculateStrategy calculateStrategy = strategyFactory.get(employee.getType());
 
         BigDecimal wage = calculateStrategy.calculate(employee);
 
