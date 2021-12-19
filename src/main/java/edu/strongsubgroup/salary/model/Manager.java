@@ -33,6 +33,7 @@ public class Manager extends Employee {
         setDateOfEmployment(LocalDate.now());
         setCountOfProjects(employeeDto.getCountOfProjects());
         setOverworkingStrategy(employeeDto.getOverworkingStrategy());
+        setEmployeeStatus(employeeDto.getEmployeeStatus());
     }
 
     @Override
@@ -49,6 +50,7 @@ public class Manager extends Employee {
                 .gender(getGender())
                 .dateOfEmployment(getDateOfEmployment())
                 .countOfProjects(getCountOfProjects())
+                .employeeStatus(getEmployeeStatus())
                 .build();
     }
 }

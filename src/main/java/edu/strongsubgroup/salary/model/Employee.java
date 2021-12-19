@@ -1,6 +1,7 @@
 package edu.strongsubgroup.salary.model;
 
 import edu.strongsubgroup.salary.api.dto.EmployeeDto;
+import edu.strongsubgroup.salary.common.EmployeeStatus;
 import edu.strongsubgroup.salary.common.EmployeeType;
 import edu.strongsubgroup.salary.common.Gender;
 import edu.strongsubgroup.salary.common.OverworkingStrategy;
@@ -68,6 +69,10 @@ public abstract class Employee extends AbstractPersistable<Long> {
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
     private Gender gender;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "employee_status", nullable = false)
+    private EmployeeStatus employeeStatus;
 
     public abstract EmployeeDto toDto();
 }

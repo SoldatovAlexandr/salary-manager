@@ -2,6 +2,7 @@ package edu.strongsubgroup.salary.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import edu.strongsubgroup.salary.common.EmployeeStatus;
 import edu.strongsubgroup.salary.common.EmployeeType;
 import edu.strongsubgroup.salary.common.Gender;
 import edu.strongsubgroup.salary.common.OverworkingStrategy;
@@ -69,6 +70,8 @@ public class EmployeeDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dateOfEmployment;
+
+    private EmployeeStatus employeeStatus;
 
     /**
      * Engineer

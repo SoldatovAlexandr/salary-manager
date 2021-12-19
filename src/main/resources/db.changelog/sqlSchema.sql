@@ -135,3 +135,9 @@ alter table employee
 INSERT INTO roles (name)
 VALUES ('USER'),
        ('ADMIN');
+
+--changeset asoldatov:employee2
+alter table employee
+    ADD COLUMN employee_status varchar(10) DEFAULT 'WORKING';
+--rollback alter table drop column employee_status
+--comment: Создан столбец employee_status
