@@ -15,4 +15,6 @@ public interface EmployeeService {
     Page<Employee> findBySpecification(EmployeeSpecification specification, Pageable pageable);
 
     Collection<Employee> findUnCalculated(Long limit);
+
+    Employee fire(Long id);
 }

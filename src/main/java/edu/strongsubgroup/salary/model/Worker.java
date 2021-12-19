@@ -38,6 +38,7 @@ public class Worker extends Employee {
         setExtraVacationDays(employeeDto.getExtraVacationDays());
         setHazardRatio(employeeDto.getHazardRatio());
         setOverworkingStrategy(employeeDto.getOverworkingStrategy());
+        setEmployeeStatus(employeeDto.getEmployeeStatus());
     }
 
     @Override
@@ -55,6 +56,7 @@ public class Worker extends Employee {
                 .dateOfEmployment(getDateOfEmployment())
                 .numberOfDetails(getNumberOfDetails())
                 .hazardRatio(getHazardRatio())
+                .employeeStatus(getEmployeeStatus())
                 .build();
     }
 }

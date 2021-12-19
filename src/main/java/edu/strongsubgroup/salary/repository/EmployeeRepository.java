@@ -10,7 +10,7 @@ import java.util.Collection;
 public interface EmployeeRepository extends JpaRepository<Employee, Long>, JpaSpecificationExecutor<Employee> {
 
     @Query(value = "SELECT * FROM employee WHERE id NOT IN " +
-            "(SELECT employee_id FROM salary WHERE DATE(calculation_date) = CURRENT_DATE) " +
+            "(SELECT employee_id FROM salary WHERE DATE(calculation_date) = CURRENT_DATE) AND employee_status = 'WORKING' " +
             "LIMIT :limit FOR UPDATE SKIP LOCKED ",
             nativeQuery = true)
     Collection<Employee> findUnCalculated(Long limit);

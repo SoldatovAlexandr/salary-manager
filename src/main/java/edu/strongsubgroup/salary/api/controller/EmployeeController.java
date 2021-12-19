@@ -40,4 +40,10 @@ public class EmployeeController {
         employeeService.save(employee);
         return employeeMapper.to(employee);
     }
+
+    @DeleteMapping("/{id}")
+    public EmployeeDto fireEmployee(@PathVariable("id") Long id){
+        final Employee employee = employeeService.fire(id);
+        return employeeMapper.to(employee);
+    }
 }

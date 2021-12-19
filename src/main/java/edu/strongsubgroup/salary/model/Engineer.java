@@ -41,6 +41,7 @@ public class Engineer extends Employee {
         setExtraVacationDays(employeeDto.getExtraVacationDays());
         setInformationSecurityRank(employeeDto.getInformationSecurityRank());
         setOverworkingStrategy(employeeDto.getOverworkingStrategy());
+        setEmployeeStatus(employeeDto.getEmployeeStatus());
     }
 
     @Override
@@ -59,6 +60,7 @@ public class Engineer extends Employee {
                 .electricalSafetyGrade(getElectricalSafetyGrade())
                 .fireSafetyRank(getFireSafetyRank())
                 .informationSecurityRank(getInformationSecurityRank())
+                .employeeStatus(getEmployeeStatus())
                 .build();
     }
 }
